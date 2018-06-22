@@ -1,0 +1,20 @@
+{
+  "name": "dbal-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "export NODE_ENV=development || set NODE_ENV=development && nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
+    "hapi": "^17.5.1",
+    "jsonwebtoken": "^8.3.0",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.10",
+    "sequelize-cli": "^4.0.0"
+  }
+}

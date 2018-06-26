@@ -21,14 +21,50 @@ exports.createItem = (req, h) => {
 
 exports.getItem = (req, h) => {
     console.log(req.headers.authorization)
-  return models.Item.findAll({
-    // where: {
-    //   id: req.params.id
-    // }
-  }).then((itemData) => {
-    return { message: "Success", user: itemData };
+  return models.Item.findAll({ limit: 10 }).then((itemData) => {
+    return { message: "Success", item: itemData };
   })
   .catch((err) => {
     return { error: err };
+  });
+}
+
+exports.updateItem = (req, h) => {
+  return  models.Item.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((itemInfo) => {
+    if(!itemInfo){
+      return { message: "Item not found"}
+    }
+    console.log(req.payload)
+    const params = {
+      name: req.payload.name,
+      price: req.payload.price,
+      quantity: req.payload.quantity,
+      category: req.payload.category
+    };
+    return itemInfo.updateAttributes(params).then((itemInfo) => {
+      return { message: "Item updated Successfully", item: itemInfo};
+    });
+  })
+  .catch((err) => {
+    return { err: err}
+  })
+}
+
+exports.deleteItem = (req, h) => {
+  console.log(req);
+  return models.Item.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then((itemInfo) => {
+    return { message: "Success", item: itemInfo };
+  })
+  .catch((err) => {
+    return { err };
   });
 }

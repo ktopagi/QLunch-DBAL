@@ -23,7 +23,7 @@ exports.createUser = (req, h) => {
 }
 
 exports.loginUser = (request, h) => {
-    const response = h.response('success');
+    // const response = h.response('success');
     const users = {
       email: request.payload.email,
       password: request.payload.password
@@ -34,7 +34,7 @@ exports.loginUser = (request, h) => {
         const token = JWT.sign(user.dataValues, "23094820394823948dsafbhasdfhasdbf");
         return {message: "Signed in successfully!", token: token, user}
       } else {
-        return { message: "Email or Password is invalid" }
+        return { message: "Email or Password is invalid","status": 422 }
       }
       return user.dataValues
     }).catch((err) => {

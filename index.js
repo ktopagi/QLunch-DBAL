@@ -7,8 +7,11 @@ const usersController = require('./controllers/usersController');
 const itemsController = require('./controllers/itemsController');
 
 var server = Hapi.server({
-    host : 'localhost',
-    port : 3005
+    host : '192.168.2.67',
+    port : 3005,
+    debug: { 
+        request: ['error']
+    }
 });
 
 // server.route({
@@ -19,6 +22,11 @@ var server = Hapi.server({
 server.route({
     method: 'GET',
     path: '/',
+    options: {
+        log: {
+            collect: true
+        }
+    },
     handler: function(req, h){
         return '<center><h1>This is DBAL</h1></center>';
     }
@@ -27,22 +35,62 @@ server.route({
 server.route({
     method: 'POST',
     path: '/api/users/create',
+    options: {
+        log: {
+            collect: true
+        }
+    },
     handler: usersController.createUser
 });
 server.route({
     method: "POST",
     path: "/api/users/login",
+    options: {
+        log: {
+            collect: true
+        }
+    },
     handler: usersController.loginUser
-});
-server.route({
-    method: "GET",
-    path: "/api/items",
-    handler: itemsController.getItem
 });
 server.route({
     method: "POST",
     path: "/api/items/create",
+    options: {
+        log: {
+            collect: true
+        }
+    },
     handler: itemsController.createItem
+});
+server.route({
+    method: "GET",
+    path: "/api/items",
+    options: {
+        log: {
+            collect: true
+        }
+    },
+    handler: itemsController.getItem
+});
+server.route({
+    method: "PUT",
+    path: "/api/items/{id}",
+    options: {
+        log: {
+            collect: true
+        }
+    },
+    handler: itemsController.updateItem
+});
+server.route({
+    method: "DELETE",
+    path: "/api/items/{id}",
+    options: {
+        log: {
+            collect: true
+        }
+    },
+    handler: itemsController.deleteItem
 });
 
 const init = async () => {

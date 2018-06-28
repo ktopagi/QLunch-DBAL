@@ -1,13 +1,12 @@
 'use sctrict';
 
 const Hapi = require('hapi');
-const Joi = require('joi');
 
 const usersController = require('./controllers/usersController');
 const itemsController = require('./controllers/itemsController');
 
 var server = Hapi.server({
-    host : '192.168.2.67',
+    host : '0.0.0.0',
     port : 3005,
     debug: { 
         request: ['error']
